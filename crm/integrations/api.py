@@ -137,6 +137,113 @@ def get_contact_lead_or_deal_from_number(number):
 	return None, None
 
 
+def _clean_phone_number(phone_number: str) -> str:
+	return (
+		(phone_number or "")
+		.strip()
+		.replace(" ", "")
+		.replace("-", "")
+		.replace("(", "")
+		.replace(")", "")
+		.replace("+", "")
+	)
+
+
+@frappe.whitelist()
+def link_call_logs_to_reference_by_numbers(
+	reference_doctype: str, reference_name: str, phone_numbers: list[str]
+) -> int:
+	if not reference_doctype or not reference_name:
+		return 0
+
+	phone_numbers = [frappe.utils.cstr(p).strip() for p in (phone_numbers or []) if frappe.utils.cstr(p).strip()]
+	if not phone_numbers:
+		return 0
+
+	CallLog = frappe.qb.DocType("CRM Call Log")
+	normalized_from = Replace(
+		Replace(Replace(Replace(Replace(CallLog["from"], " ", ""), "-", ""), "(", ""), ")", ""), "+", ""
+	)
+	normalized_to = Replace(
+		Replace(Replace(Replace(Replace(CallLog.to, " ", ""), "-", ""), "(", ""), ")", ""), "+", ""
+	)
+
+	call_log_rows: list[dict] = []
+	for raw_number in phone_numbers:
+		cleaned_number = _clean_phone_number(raw_number)
+		if not cleaned_number:
+			continue
+
+		query = (
+			frappe.qb.from_(CallLog)
+			.select(CallLog.name, CallLog["from"], CallLog.to, CallLog.reference_doctype, CallLog.reference_docname)
+			.where((normalized_from.like(f"%{cleaned_number}%")) | (normalized_to.like(f"%{cleaned_number}%")))
+			.orderby(CallLog.modified, order=Order.desc)
+			.limit(200)
+		)
+		call_log_rows.extend(query.run(as_dict=True))
+
+	if not call_log_rows:
+		return 0
+
+	seen = set()
+	unique_call_logs = []
+	for row in call_log_rows:
+		if row.get("name") in seen:
+			continue
+		seen.add(row.get("name"))
+		unique_call_logs.append(row)
+
+	linked_count = 0
+	for row in unique_call_logs:
+		call_log_name = row.get("name")
+		if not call_log_name:
+			continue
+
+		if row.get("reference_doctype") in ["CRM Lead", "CRM Deal"] and row.get("reference_docname"):
+			continue
+
+		matched = False
+		for raw_number in phone_numbers:
+			if are_same_phone_number(row.get("from"), raw_number, validate=False) or are_same_phone_number(
+				row.get("to"), raw_number, validate=False
+			):
+				matched = True
+				break
+
+		if not matched:
+			continue
+
+		call_log = frappe.get_doc("CRM Call Log", call_log_name)
+
+		already_linked_to_other_primary = False
+		if call_log.reference_doctype in ["CRM Lead", "CRM Deal"] and call_log.reference_docname:
+			if not (call_log.reference_doctype == reference_doctype and call_log.reference_docname == reference_name):
+				already_linked_to_other_primary = True
+
+		if already_linked_to_other_primary:
+			continue
+
+		for link in call_log.links:
+			if link.link_doctype in ["CRM Lead", "CRM Deal"] and not (
+				link.link_doctype == reference_doctype and link.link_name == reference_name
+			):
+				already_linked_to_other_primary = True
+				break
+
+		if already_linked_to_other_primary:
+			continue
+
+		call_log.link_with_reference_doc(reference_doctype, reference_name)
+		call_log.save(ignore_permissions=True)
+		linked_count += 1
+
+	if linked_count:
+		frappe.db.commit()
+
+	return linked_count
+
+
 @frappe.whitelist()
 def get_contact_by_phone_number(phone_number: str):
 	"""Get contact by phone number."""

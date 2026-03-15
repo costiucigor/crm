@@ -366,6 +366,11 @@ def add_default_lead_sources():
 		"Campaign",
 		"Walk In",
 		"Facebook",
+		"Website",
+		"Facebook Ads",
+		"Google Ads",
+		"WhatsApp",
+		"Manual (CRM)",
 	]
 
 	for source in lead_sources:

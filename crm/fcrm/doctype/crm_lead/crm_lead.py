@@ -7,6 +7,7 @@ from frappe.desk.form.assign_to import add as assign
 from frappe.model.document import Document
 from frappe.utils import has_gravatar, validate_email_address
 
+from crm.integrations.api import link_call_logs_to_reference_by_numbers
 from crm.fcrm.doctype.crm_service_level_agreement.utils import get_sla
 from crm.fcrm.doctype.crm_status_change_log.crm_status_change_log import (
 	add_status_change_log,
@@ -83,10 +84,20 @@ class CRMLead(Document):
 			self.assign_agent(self.lead_owner)
 		if self.has_value_changed("status"):
 			add_status_change_log(self)
+		if not self.is_new() and (
+			self.has_value_changed("mobile_no") or self.has_value_changed("phone")
+		) and (self.mobile_no or self.phone):
+			phone_numbers = [p for p in [self.mobile_no, self.phone] if p]
+			if phone_numbers:
+				link_call_logs_to_reference_by_numbers("CRM Lead", self.name, phone_numbers)
 
 	def after_insert(self):
 		if self.lead_owner:
 			self.assign_agent(self.lead_owner)
+		if self.mobile_no or self.phone:
+			phone_numbers = [p for p in [self.mobile_no, self.phone] if p]
+			if phone_numbers:
+				link_call_logs_to_reference_by_numbers("CRM Lead", self.name, phone_numbers)
 
 	def before_save(self):
 		self.apply_sla()

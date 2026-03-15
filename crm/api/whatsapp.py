@@ -41,6 +41,24 @@ def validate(doc, method):
 		if doctype and name is not None:
 			doc.reference_doctype = doctype
 			doc.reference_name = name
+			return
+
+		if doc.type == "Incoming":
+			source_name = "WhatsApp"
+			if not frappe.db.exists("CRM Lead Source", {"source_name": source_name}):
+				frappe.get_doc({"doctype": "CRM Lead Source", "source_name": source_name}).insert(
+					ignore_permissions=True
+				)
+
+			lead = frappe.new_doc("CRM Lead")
+			lead.first_name = _("WhatsApp {0}").format(phone_number)
+			lead.mobile_no = phone_number
+			lead.source = source_name
+			lead.flags.ignore_email_validation = 1
+			lead.insert(ignore_permissions=True)
+
+			doc.reference_doctype = "CRM Lead"
+			doc.reference_name = lead.name
 
 
 def on_update(doc, method):

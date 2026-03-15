@@ -1,16 +1,19 @@
-#!bin/bash
+#!/bin/bash
+
+set -e
 
 if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
-    echo "Bench already exists, skipping init"
-    cd frappe-bench
-    bench start
-else
-    echo "Creating new bench..."
+	echo "Bench already exists, starting"
+	cd /home/frappe/frappe-bench
+	bench start
+	exit 0
 fi
+
+echo "Creating new bench..."
 
 bench init --skip-redis-config-generation frappe-bench --version version-15
 
-cd frappe-bench
+cd /home/frappe/frappe-bench
 
 # Use containers instead of localhost
 bench set-mariadb-host mariadb
@@ -22,7 +25,12 @@ bench set-redis-socketio-host redis://redis:6379
 sed -i '/redis/d' ./Procfile
 sed -i '/watch/d' ./Procfile
 
-bench get-app crm --branch main
+if [ -f "/workspace/crm/hooks.py" ]; then
+	bench get-app crm /workspace
+	cp -a /workspace/. /home/frappe/frappe-bench/apps/crm/
+else
+	bench get-app crm --branch main
+fi
 
 bench new-site crm.localhost \
     --force \
