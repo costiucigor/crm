@@ -61,7 +61,7 @@
 <script setup>
 import ArrowUpRightIcon from '@/components/Icons/ArrowUpRightIcon.vue'
 import { TextEditor, call } from 'frappe-ui'
-import { useOnboarding, useTelemetry } from 'frappe-ui/frappe'
+import { useOnboarding } from 'frappe-ui/frappe'
 import { ref, nextTick, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -78,8 +78,8 @@ const emit = defineEmits(['after'])
 
 const router = useRouter()
 
-const { updateOnboardingStep } = useOnboarding('frappecrm')
-const { capture } = useTelemetry()
+const { updateOnboardingStep } = useOnboarding('orbiocrm')
+const capture = () => {}
 
 const error = ref(null)
 const title = ref(null)

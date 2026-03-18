@@ -128,7 +128,7 @@
       :afterSkipAll="() => capture('onboarding_steps_skipped')"
       :afterReset="(step) => capture('onboarding_step_reset_' + step)"
       :afterResetAll="() => capture('onboarding_steps_reset')"
-      docsLink="https://docs.frappe.io/crm"
+      docsLink="#"
     />
     <IntermediateStepModal
       v-model="showIntermediateModal"
@@ -183,7 +183,6 @@ import {
   showHelpModal,
   minimize,
   IntermediateStepModal,
-  useTelemetry,
 } from 'frappe-ui/frappe'
 import router from '@/router'
 import { useStorage } from '@vueuse/core'
@@ -191,7 +190,7 @@ import { ref, reactive, computed, markRaw, onMounted } from 'vue'
 
 const { getPinnedViews, getPublicViews } = viewsStore()
 const { toggle: toggleNotificationPanel } = notificationsStore()
-const { capture } = useTelemetry()
+const capture = () => {}
 const { users, isManager } = usersStore()
 
 const isSidebarCollapsed = useStorage('isSidebarCollapsed', false)
@@ -322,7 +321,7 @@ function getIcon(routeName, icon) {
 
 // onboarding
 const { user } = sessionStore()
-const { isOnboardingStepsCompleted, setUp } = useOnboarding('frappecrm')
+const { isOnboardingStepsCompleted, setUp } = useOnboarding('orbiocrm')
 
 async function getFirstLead() {
   let firstLead = localStorage.getItem('firstLead' + user)
@@ -619,7 +618,7 @@ const articles = ref([
     ],
   },
   {
-    title: __('Frappe CRM mobile'),
+    title: __('OrbioCRM mobile'),
     opened: false,
     subArticles: [
       { name: 'mobile-app-installation', title: __('Mobile App Installation') },

@@ -5,7 +5,7 @@
         <div class="flex justify-center">
           <div class="flex flex-col items-center">
             <CRMLogo class="mb-3 size-12" />
-            <h3 class="font-semibold text-xl text-ink-gray-9">Frappe CRM</h3>
+            <h3 class="font-semibold text-xl text-ink-gray-9">OrbioCRM</h3>
           </div>
         </div>
         <hr class="border-t my-3 mx-2" />
@@ -29,7 +29,7 @@
         </div>
         <hr class="border-t my-3 mx-2" />
         <p class="text-sm text-ink-gray-6 px-2 mt-2">
-          © Frappe Technologies Pvt. Ltd. and contributors
+          © OrbioCRM and contributors
         </p>
       </div>
     </template>
@@ -38,7 +38,6 @@
 <script setup>
 import CRMLogo from '@/components/Icons/CRMLogo.vue'
 import LucideGlobe from '~icons/lucide/globe'
-import LucideGitHub from '~icons/lucide/github'
 import LucideHeadset from '~icons/lucide/headset'
 import LucideBug from '~icons/lucide/bug'
 import LucideBookOpen from '~icons/lucide/book-open'
@@ -48,27 +47,27 @@ let show = defineModel({ type: Boolean })
 let links = [
   {
     label: __('Website'),
-    url: 'https://frappe.io/crm',
+    url: 'https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project',
     icon: LucideGlobe,
   },
   {
-    label: __('GitHub Repository'),
-    url: 'https://github.com/frappe/crm',
-    icon: LucideGitHub,
+    label: __('Repository'),
+    url: 'https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project',
+    icon: LucideGlobe,
   },
   {
     label: __('Documentation'),
-    url: 'https://docs.frappe.io/crm',
+    url: '#',
     icon: LucideBookOpen,
   },
   {
     label: __('Report an Issue'),
-    url: 'https://github.com/frappe/crm/issues',
+    url: 'https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project/-/issues',
     icon: LucideBug,
   },
   {
     label: __('Contact Support'),
-    url: 'https://support.frappe.io',
+    url: '#',
     icon: LucideHeadset,
   },
 ]

@@ -118,7 +118,6 @@ import UserAvatar from '@/components/UserAvatar.vue'
 import Link from '@/components/Controls/Link.vue'
 import { taskStatusOptions, taskPriorityOptions, getFormat } from '@/utils'
 import { usersStore } from '@/stores/users'
-import { useTelemetry } from 'frappe-ui/frappe'
 import {
   TextEditor,
   Dropdown,
@@ -146,8 +145,8 @@ const emit = defineEmits(['updateTask', 'after'])
 
 const router = useRouter()
 const { users, getUser } = usersStore()
-const { updateOnboardingStep } = useOnboarding('frappecrm')
-const { capture } = useTelemetry()
+const { updateOnboardingStep } = useOnboarding('orbiocrm')
+const capture = () => {}
 
 const title = ref(null)
 const editMode = ref(false)

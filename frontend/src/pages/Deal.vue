@@ -410,7 +410,7 @@ const { statusOptions, getDealStatus } = statusesStore()
 const { doctypeMeta } = getMeta('CRM Deal')
 
 const { updateOnboardingStep, isOnboardingStepsCompleted } =
-  useOnboarding('frappecrm')
+  useOnboarding('orbiocrm')
 
 const route = useRoute()
 const router = useRouter()

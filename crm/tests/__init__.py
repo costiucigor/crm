@@ -5,7 +5,9 @@ import frappe
 
 
 def before_tests():
-	load_crm_user_test_records()
+	frappe.flags.mute_emails = True
+	frappe.flags.in_test = True
+	# Skip loading user fixtures to avoid welcome email side-effects
 
 
 def load_crm_user_test_records():
@@ -18,5 +20,7 @@ def load_crm_user_test_records():
 
 		for record in test_records:
 			if not frappe.db.exists("User", record.get("email")):
+				record = record.copy()
+				record.pop("new_password", None)
 				doc = frappe.get_doc(record)
 				doc.insert(ignore_permissions=True, ignore_if_duplicate=True)

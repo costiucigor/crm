@@ -89,7 +89,6 @@ import SmileIcon from '@/components/Icons/SmileIcon.vue'
 import AttachmentIcon from '@/components/Icons/AttachmentIcon.vue'
 import AttachmentItem from '@/components/AttachmentItem.vue'
 import { usersStore } from '@/stores/users'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { TextEditorBubbleMenu, TextEditor, FileUploader } from 'frappe-ui'
 import { EditorContent } from '@tiptap/vue-3'
 import { ref, computed } from 'vue'
@@ -111,7 +110,7 @@ const attachments = defineModel('attachments', {
 const content = defineModel('content', { type: String, default: '' })
 
 const { users: usersList } = usersStore()
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const textEditor = ref(null)
 const emoji = ref('')

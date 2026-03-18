@@ -94,7 +94,6 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 import { createResource, toast } from 'frappe-ui'
-import { useTelemetry } from 'frappe-ui/frappe'
 import CircleAlert from '~icons/lucide/circle-alert'
 import {
   customProviderFields,
@@ -120,7 +119,7 @@ const state = reactive({
   default_incoming: false,
   default_outgoing: false,
 })
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const selectedService = ref(null)
 const fields = computed(() =>

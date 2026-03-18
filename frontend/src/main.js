@@ -23,8 +23,6 @@ import {
   FeatherIcon,
 } from 'frappe-ui'
 
-import { telemetryPlugin } from 'frappe-ui/frappe'
-
 let globalComponents = {
   Button,
   TextInput,
@@ -42,6 +40,11 @@ let pinia = createPinia()
 
 let app = createApp(App)
 
+try {
+  localStorage.setItem('theme', 'dark')
+  document.documentElement.setAttribute('data-theme', 'dark')
+} catch {}
+
 setConfig('resourceFetcher', frappeRequest)
 app.use(FrappeUI)
 app.use(pinia)
@@ -50,7 +53,6 @@ app.use(translationPlugin)
 for (let key in globalComponents) {
   app.component(key, globalComponents[key])
 }
-app.use(telemetryPlugin, { app_name: 'crm' })
 
 app.config.globalProperties.$dialog = createDialog
 

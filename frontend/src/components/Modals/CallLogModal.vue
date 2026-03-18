@@ -59,7 +59,6 @@ import { isMobileView } from '@/composables/settings'
 import { showQuickEntryModal, quickEntryProps } from '@/composables/modals'
 import { getRandom } from '@/utils'
 import { useDocument } from '@/data/document'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { createResource, ErrorMessage, Badge } from 'frappe-ui'
 import { ref, nextTick, computed, onMounted } from 'vue'
 
@@ -70,7 +69,7 @@ const props = defineProps({
 })
 
 const { isManager } = usersStore()
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const show = defineModel({ type: Boolean })
 

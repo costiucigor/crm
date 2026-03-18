@@ -238,9 +238,6 @@ def link_call_logs_to_reference_by_numbers(
 		call_log.save(ignore_permissions=True)
 		linked_count += 1
 
-	if linked_count:
-		frappe.db.commit()
-
 	return linked_count
 
 

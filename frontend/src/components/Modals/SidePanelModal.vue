@@ -67,7 +67,6 @@
 import SidePanelLayout from '@/components/SidePanelLayout.vue'
 import SidePanelLayoutEditor from '@/components/SidePanelLayoutEditor.vue'
 import { useDebounceFn } from '@vueuse/core'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { Dialog, Badge, call, createResource } from 'frappe-ui'
 import { ref, watch, onMounted, nextTick } from 'vue'
 
@@ -77,7 +76,7 @@ const props = defineProps({
 
 const emit = defineEmits(['reload'])
 
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const show = defineModel({ type: Boolean })
 const _doctype = ref(props.doctype)

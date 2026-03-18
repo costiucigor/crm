@@ -52,7 +52,7 @@ import { statusesStore } from '@/stores/statuses'
 import { sessionStore } from '@/stores/session'
 import { isMobileView } from '@/composables/settings'
 import { showQuickEntryModal, quickEntryProps } from '@/composables/modals'
-import { useOnboarding, useTelemetry } from 'frappe-ui/frappe'
+import { useOnboarding } from 'frappe-ui/frappe'
 import { createResource } from 'frappe-ui'
 import { useDocument } from '@/data/document'
 import { computed, onMounted, ref, nextTick } from 'vue'
@@ -65,7 +65,7 @@ const props = defineProps({
 const { user } = sessionStore()
 const { getUser, isManager } = usersStore()
 const { getLeadStatus, statusOptions } = statusesStore()
-const { updateOnboardingStep } = useOnboarding('frappecrm')
+const { updateOnboardingStep } = useOnboarding('orbiocrm')
 
 const show = defineModel({ type: Boolean })
 const router = useRouter()
@@ -74,7 +74,7 @@ const isLeadCreating = ref(false)
 
 const { document: lead, triggerOnBeforeCreate } = useDocument('CRM Lead')
 
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const leadStatuses = computed(() => statusOptions('lead'))
 

@@ -1,33 +1,33 @@
 <div align="center" markdown="1">
 
-<a href="https://frappe.io/products/crm">
-    <img src=".github/logo.svg" height="80" alt="Frappe CRM Logo">
+<a href="https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project">
+    <img src=".github/logo.svg" height="80" alt="OrbioCRM Logo">
 </a>
 
-<h1>Frappe CRM</h1>
+<h1>OrbioCRM</h1>
 
 **Simplify Sales, Amplify Relationships**
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/frappe/crm)](https://github.com/frappe/crm/releases)
+[![GitLab Release](https://img.shields.io/gitlab/v/release/dr.graphdesigner-group/dr.graphdesigner-project?sort=semver)](https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project/-/releases)
 
 <div>
     <picture>
         <source media="(prefers-color-scheme: dark)" srcset=".github/screenshots/FrappeCRMHeroImage.png">
-        <img width="1402" alt="Frappe CRM Hero Image" src=".github/screenshots/FrappeCRMHeroImage.png">
+        <img width="1402" alt="OrbioCRM Hero Image" src=".github/screenshots/FrappeCRMHeroImage.png">
     </picture>
 </div>
 
-[Live Demo](https://frappecrm-demo.frappe.cloud/api/method/crm.api.demo.login) - [Website](https://frappe.io/crm) - [Documentation](https://docs.frappe.io/crm)
+[GitLab](https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project) - [Documentation](#)
 
 </div>
 
-## Frappe CRM
+## OrbioCRM
 
-Frappe CRM is a simple, affordable, open-source CRM tool designed for modern sales teams with unlimited users. Frappe CRM is crafted for providing a great user experience, packed with features for core CRM activities helping you build strong customer relationships while keeping things clean and organised.
+OrbioCRM is a simple, affordable, open-source CRM tool designed for modern sales teams with unlimited users. OrbioCRM is crafted for providing a great user experience, packed with features for core CRM activities helping you build strong customer relationships while keeping things clean and organised.
 
 ### Motivation
 
-The motivation behind building Frappe CRM stems from the need for a simple, customizable, and open-source solution tailored to modern business needs. Many existing CRMs are either too complex, overly generic, or locked behind steep pricing models that hinder accessibility and flexibility. Frappe CRM was designed to bridge this gap, offering a tool that empowers businesses to manage their customer relationships seamlessly while being easy to adapt to specific workflows. Built on the Frappe framework, it prioritizes usability, extensibility, and affordability, making it an ideal choice for growing teams and organizations looking for a CRM that aligns with their unique processes.
+The motivation behind building OrbioCRM stems from the need for a simple, customizable, and open-source solution tailored to modern business needs. Many existing CRMs are either too complex, overly generic, or locked behind steep pricing models that hinder accessibility and flexibility. OrbioCRM was designed to bridge this gap, offering a tool that empowers businesses to manage their customer relationships seamlessly while being easy to adapt to specific workflows. Built on a modern full-stack framework, it prioritizes usability, extensibility, and affordability, making it an ideal choice for growing teams and organizations looking for a CRM that aligns with their unique processes.
 
 ### Key Features
 
@@ -76,13 +76,13 @@ The motivation behind building Frappe CRM stems from the need for a simple, cust
 
 -   **Twilio:** Integrate Twilio to make and receive calls from the CRM. You can also record calls. It is a built-in integration.
 -   **Exotel:** Integrate Exotel to make and receive calls via agents mobile phone from the CRM. You can also record calls. It is a built-in integration.
--   **WhatsApp:** Integrate WhatsApp to send and receive messages from the CRM. [Frappe WhatsApp](https://github.com/shridarpatil/frappe_whatsapp) is used for this integration.
+-   **WhatsApp:** Integrate WhatsApp to send and receive messages from the CRM.
 -   **ERPNext:** Integrate with [ERPNext](https://erpnext.com) to extend the CRM capabilities to include invoicing, accounting, and more.
 
 ### Under the Hood
 
-- [Frappe Framework](https://github.com/frappe/frappe): A full-stack web application framework.
-- [Frappe UI](https://github.com/frappe/frappe-ui): A Vue-based UI library, to provide a modern user interface.
+- A full-stack web application framework.
+- A Vue-based UI library, to provide a modern user interface.
 
 ### Compatibility
 This app is compatible with the following versions of Frappe and ERPNext:
@@ -94,52 +94,15 @@ This app is compatible with the following versions of Frappe and ERPNext:
 
 ## Getting Started (Production)
 
-### Managed Hosting
-
-Get started with your personal or business site with a few clicks on Frappe Cloud - our official hosting service.
-<div>
-	<a href="https://frappecloud.com/crm/signup" target="_blank">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/try-on-fc-white.png">
-			<img src="https://frappe.io/files/try-on-fc-black.png" alt="Try on Frappe Cloud" height="28" />
-		</picture>
-	</a>
-</div>
-
 ### Self Hosting
 
-Follow these steps to set up Frappe CRM in production:
-
-**Step 1**: Download the easy install script
-
-```bash
-wget https://frappe.io/easy-install.py
-```
-
-**Step 2**: Run the deployment command
-
-```bash
-python3 ./easy-install.py deploy \
-    --project=crm_prod_setup \
-    --email=email.example.com \
-    --image=ghcr.io/frappe/crm \
-    --version=stable \
-    --app=crm \
-    --sitename subdomain.domain.tld
-```
-
-Replace the following parameters with your values:
-
--   `email.example.com`: Your email address
--   `subdomain.domain.tld`: Your domain name where CRM will be hosted
-
-The script will set up a production-ready instance of Frappe CRM with all the necessary configurations in about 5 minutes.
+Deploy OrbioCRM using Docker on your server.
 
 ## Getting Started (Development)
 
 ### Local Setup
 
-1. [Setup Bench](https://docs.frappe.io/framework/user/en/installation).
+1. Setup the framework bench.
 1. In the frappe-bench directory, run `bench start` and keep it running.
 1. Open a new terminal session and cd into `frappe-bench` directory and run following commands:
     ```sh
@@ -157,7 +120,7 @@ The script will set up a production-ready instance of Frappe CRM with all the ne
     ```
 1. Now, you can access the site on vite dev server at `http://sitename.localhost:8080`
 
-**Note:** You'll find all the code related to Frappe CRM's frontend inside `frappe-bench/apps/crm/frontend`
+**Note:** You'll find all the code related to OrbioCRM's frontend inside `frappe-bench/apps/crm/frontend`
 
 ### Docker
 
@@ -165,14 +128,14 @@ You need Docker, docker-compose and git setup on your machine. Refer [Docker doc
 
 **Step 1**: Setup folder and download the required files
 
-    mkdir frappe-crm
-    cd frappe-crm
+    mkdir orbiocrm
+    cd orbiocrm
 
     # Download the docker-compose file
-    wget -O docker-compose.yml https://raw.githubusercontent.com/frappe/crm/develop/docker/docker-compose.yml
+    wget -O docker-compose.yml https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project/-/raw/main/docker/docker-compose.yml
 
     # Download the setup script
-    wget -O init.sh https://raw.githubusercontent.com/frappe/crm/develop/docker/init.sh
+    wget -O init.sh https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project/-/raw/main/docker/init.sh
 
 **Step 2**: Run the container and daemonize it
 
@@ -185,19 +148,4 @@ You need Docker, docker-compose and git setup on your machine. Refer [Docker doc
 
 ## Learn and connect
 
--   [Telegram Public Group](https://t.me/frappecrm)
--   [Discuss Forum](https://discuss.frappe.io/c/frappe-crm)
--   [Documentation](https://docs.frappe.io/crm)
--   [YouTube](https://www.youtube.com/@frappetech)
--   [X/Twitter](https://x.com/frappetech)
-
-<br>
-<br>
-<div align="center" style="padding-top: 0.75rem;">
-	<a href="https://frappe.io" target="_blank">
-		<picture>
-			<source media="(prefers-color-scheme: dark)" srcset="https://frappe.io/files/Frappe-white.png">
-			<img src="https://frappe.io/files/Frappe-black.png" alt="Frappe Technologies" height="28"/>
-		</picture>
-	</a>
-</div>
+-   Documentation: #

@@ -73,49 +73,54 @@ def _create_note(reference_doctype: str, reference_docname: str, title: str, con
 @frappe.whitelist(allow_guest=True, methods=["POST"])
 def webhook(payload: dict | None = None) -> dict:
 	_validate_webhook_secret()
+	previous_user = getattr(getattr(frappe, "session", None), "user", None) or "Guest"
+	system_user = frappe.conf.get("crm_leads_webhook_user") or "Administrator"
+	frappe.set_user(system_user)
 
-	data = payload if isinstance(payload, dict) else None
-	if data is None:
-		data = _get_request_json()
+	try:
+		data = payload if isinstance(payload, dict) else None
+		if data is None:
+			data = _get_request_json()
 
-	name = frappe.utils.cstr(data.get("name") or "").strip()
-	phone = frappe.utils.cstr(data.get("phone") or "").strip()
-	email = frappe.utils.cstr(data.get("email") or "").strip()
-	message = frappe.utils.cstr(data.get("message") or "").strip()
-	source = frappe.utils.cstr(data.get("source") or "").strip()
+		name = frappe.utils.cstr(data.get("name") or "").strip()
+		phone = frappe.utils.cstr(data.get("phone") or "").strip()
+		email = frappe.utils.cstr(data.get("email") or "").strip()
+		message = frappe.utils.cstr(data.get("message") or "").strip()
+		source = frappe.utils.cstr(data.get("source") or "").strip()
 
-	first_name, last_name = _split_name(name)
-	source = _ensure_lead_source(source)
+		first_name, last_name = _split_name(name)
+		source = _ensure_lead_source(source)
 
-	existing_lead = None
-	if phone:
-		contact = get_contact_by_phone_number(phone)
-		existing_lead = contact.get("lead")
+		existing_lead = None
+		if phone:
+			contact = get_contact_by_phone_number(phone)
+			existing_lead = contact.get("lead")
 
-	if not existing_lead and email:
-		existing_lead = frappe.db.get_value("CRM Lead", {"email": email, "converted": 0}, "name")
+		if not existing_lead and email:
+			existing_lead = frappe.db.get_value("CRM Lead", {"email": email, "converted": 0}, "name")
 
-	if existing_lead:
+		if existing_lead:
+			if message:
+				_create_note("CRM Lead", existing_lead, _("Webhook message"), message)
+			return {"ok": True, "lead": existing_lead, "created": False}
+
+		lead = frappe.new_doc("CRM Lead")
+		lead.first_name = first_name
+		lead.last_name = last_name
+		lead.lead_owner = system_user
+		if email:
+			lead.email = email
+		if phone:
+			lead.mobile_no = phone
+		if source:
+			lead.source = source
+
+		lead.flags.ignore_email_validation = 1
+		lead.insert(ignore_permissions=True)
+
 		if message:
-			_create_note("CRM Lead", existing_lead, _("Webhook message"), message)
-		return {"ok": True, "lead": existing_lead, "created": False}
+			_create_note("CRM Lead", lead.name, _("Webhook message"), message)
 
-	lead = frappe.new_doc("CRM Lead")
-	lead.first_name = first_name
-	lead.last_name = last_name
-	if email:
-		lead.email = email
-	if phone:
-		lead.mobile_no = phone
-	if source:
-		lead.source = source
-
-	lead.flags.ignore_email_validation = 1
-	lead.insert(ignore_permissions=True)
-
-	if message:
-		_create_note("CRM Lead", lead.name, _("Webhook message"), message)
-
-	frappe.db.commit()
-	return {"ok": True, "lead": lead.name, "created": True}
-
+		return {"ok": True, "lead": lead.name, "created": True}
+	finally:
+		frappe.set_user(previous_user)

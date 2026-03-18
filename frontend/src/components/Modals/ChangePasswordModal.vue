@@ -68,7 +68,7 @@ import { usersStore } from '@/stores/users'
 const show = defineModel({ type: Boolean })
 
 const { getUser } = usersStore()
-const { updateOnboardingStep } = useOnboarding('frappecrm')
+const { updateOnboardingStep } = useOnboarding('orbiocrm')
 
 const newPassword = ref('')
 const confirmPassword = ref('')

@@ -2,16 +2,16 @@
 	"private": true,
 	"type": "module",
 	"name": "crm",
-	"description": "Frappe CRM helps you work, not slow you down. Open-source, intuitive, and free from extra costs.",
+	"description": "OrbioCRM helps you work, not slow you down. Open-source and intuitive.",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/frappe/crm.git"
+		"url": "git+https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project.git"
 	},
-	"homepage": "https://frappe.io/crm",
-	"author": "Frappe Technologies Pvt. Ltd.",
+	"homepage": "https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project",
+	"author": "OrbioCRM",
 	"license": "GPL-3.0",
 	"bugs": {
-		"url": "https://github.com/frappe/crm/issues"
+		"url": "https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project/-/issues"
 	},
 	"scripts": {
 		"postinstall": "cd frontend && yarn install --check-files",

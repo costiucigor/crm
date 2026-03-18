@@ -97,7 +97,7 @@ import { sessionStore } from '@/stores/session'
 import { statusesStore } from '@/stores/statuses'
 import { showQuickEntryModal, quickEntryProps } from '@/composables/modals'
 import { isMobileView } from '@/composables/settings'
-import { useOnboarding, useTelemetry } from 'frappe-ui/frappe'
+import { useOnboarding } from 'frappe-ui/frappe'
 import { Switch, Dialog, createResource, call } from 'frappe-ui'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
@@ -113,7 +113,7 @@ const router = useRouter()
 const { statusOptions, getDealStatus } = statusesStore()
 const { isManager } = usersStore()
 const { user } = sessionStore()
-const { updateOnboardingStep } = useOnboarding('frappecrm')
+const { updateOnboardingStep } = useOnboarding('orbiocrm')
 
 const existingContactChecked = ref(false)
 const existingOrganizationChecked = ref(false)
@@ -121,7 +121,7 @@ const existingOrganizationChecked = ref(false)
 const existingContact = ref('')
 const existingOrganization = ref('')
 const error = ref('')
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const { triggerConvertToDeal } = useDocument('CRM Lead', props.lead.name)
 const { document: deal } = useDocument('CRM Deal')

@@ -1,8 +1,8 @@
 app_name = "crm"
-app_title = "Frappe CRM"
-app_publisher = "Frappe Technologies Pvt. Ltd."
-app_description = "Kick-ass Open Source CRM"
-app_email = "shariq@frappe.io"
+app_title = "OrbioCRM"
+app_publisher = "OrbioCRM"
+app_description = "Open Source CRM"
+app_email = "support@orbiocr.com"
 app_license = "AGPLv3"
 app_icon_url = "/assets/crm/images/logo.svg"
 app_icon_title = "CRM"
@@ -26,6 +26,10 @@ get_site_info = "crm.activation.get_site_info"
 
 export_python_type_annotations = True
 require_type_annotated_api_methods = True
+
+website_route_rules = [
+	{"from_route": "/crm/<path:app_path>", "to_route": "crm"},
+]
 
 # Includes in <head>
 # ------------------
@@ -270,25 +274,10 @@ standard_dropdown_items = [
 		"is_standard": 1,
 	},
 	{
-		"name1": "toggle_theme",
-		"label": "Toggle theme",
-		"type": "Route",
-		"icon": "moon",
-		"route": "#",
-		"is_standard": 1,
-	},
-	{
 		"name1": "settings",
 		"label": "Settings",
 		"type": "Route",
 		"icon": "settings",
-		"route": "#",
-		"is_standard": 1,
-	},
-	{
-		"name1": "login_to_fc",
-		"label": "Login to Frappe Cloud",
-		"type": "Route",
 		"route": "#",
 		"is_standard": 1,
 	},

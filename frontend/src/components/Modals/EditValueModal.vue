@@ -36,7 +36,6 @@
 <script setup>
 import Link from '@/components/Controls/Link.vue'
 import Autocomplete from '@/components/frappe-ui/Autocomplete.vue'
-import { useTelemetry } from 'frappe-ui/frappe'
 import {
   FormControl,
   call,
@@ -62,7 +61,7 @@ const show = defineModel({ type: Boolean })
 
 const emit = defineEmits(['reload'])
 
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const fields = createResource({
   url: 'crm.api.doc.get_fields',

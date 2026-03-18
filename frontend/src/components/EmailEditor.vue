@@ -185,7 +185,6 @@ import AttachmentItem from '@/components/AttachmentItem.vue'
 import EmailMultiSelect from '@/components/Controls/EmailMultiSelect.vue'
 import EmailTemplateSelectorModal from '@/components/Modals/EmailTemplateSelectorModal.vue'
 import { TextEditorBubbleMenu, TextEditor, FileUploader, call } from 'frappe-ui'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { validateEmail } from '@/utils'
 import Paragraph from '@tiptap/extension-paragraph'
 import { EditorContent } from '@tiptap/vue-3'
@@ -226,7 +225,7 @@ const attachments = defineModel('attachments', {
 })
 const content = defineModel('content', { type: String, default: '' })
 
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const textEditor = ref(null)
 const cc = ref(false)

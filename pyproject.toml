@@ -1,9 +1,9 @@
 [project]
 name = "crm"
 authors = [
-    { name = "Frappe Technologies Pvt. Ltd.", email = "shariq@frappe.io"}
+    { name = "OrbioCRM", email = "support@orbiocr.com"}
 ]
-description = "Kick-ass Open Source CRM"
+description = "Open Source CRM"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]
@@ -72,6 +72,6 @@ indent-style = "tab"
 docstring-code-format = true
 
 [project.urls]
-Homepage = "https://frappe.io/crm"
-Repository = "https://github.com/frappe/crm.git"
-"Bug Reports" = "https://github.com/frappe/crm/issues"
+Homepage = "https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project"
+Repository = "https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project.git"
+"Bug Reports" = "https://gitlab.com/dr.graphdesigner-group/dr.graphdesigner-project/-/issues"

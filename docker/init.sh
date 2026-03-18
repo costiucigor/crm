@@ -2,9 +2,19 @@
 
 set -e
 
+build_frontend_if_needed() {
+	if [ -d "/home/frappe/frappe-bench/apps/crm/frontend" ] && [ ! -f "/home/frappe/frappe-bench/apps/crm/crm/www/crm.html" ]; then
+		echo "Building CRM frontend..."
+		cd /home/frappe/frappe-bench/apps/crm/frontend
+		yarn install --check-files
+		yarn build
+	fi
+}
+
 if [ -d "/home/frappe/frappe-bench/apps/frappe" ]; then
 	echo "Bench already exists, starting"
 	cd /home/frappe/frappe-bench
+	build_frontend_if_needed
 	bench start
 	exit 0
 fi
@@ -44,5 +54,7 @@ bench --site crm.localhost set-config mute_emails 1
 bench --site crm.localhost set-config server_script_enabled 1
 bench --site crm.localhost clear-cache
 bench use crm.localhost
+
+build_frontend_if_needed
 
 bench start

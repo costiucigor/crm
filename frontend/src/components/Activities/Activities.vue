@@ -485,7 +485,6 @@ import { globalStore } from '@/stores/global'
 import { usersStore } from '@/stores/users'
 import { whatsappEnabled } from '@/composables/settings'
 import { useDocument } from '@/data/document'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { Button, Tooltip, createResource, toast } from 'frappe-ui'
 import { useElementVisibility } from '@vueuse/core'
 import {
@@ -502,7 +501,7 @@ import { useRoute } from 'vue-router'
 
 const { $socket } = globalStore()
 const { getUser } = usersStore()
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const props = defineProps({
   doctype: { type: String, default: 'CRM Lead' },

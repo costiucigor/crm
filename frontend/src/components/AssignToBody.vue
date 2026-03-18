@@ -72,7 +72,6 @@ import UserAvatar from '@/components/UserAvatar.vue'
 import Link from '@/components/Controls/Link.vue'
 import { usersStore } from '@/stores/users'
 import { Tooltip, Switch, createResource } from 'frappe-ui'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { ref, watch } from 'vue'
 
 const props = defineProps({
@@ -82,7 +81,7 @@ const props = defineProps({
   onUpdate: { type: Function, default: null },
 })
 
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const assignees = defineModel({ type: Array, default: () => [] })
 const oldAssignees = ref([])

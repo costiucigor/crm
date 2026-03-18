@@ -99,7 +99,7 @@
 <script setup>
 import { validateEmail, convertArrayToString } from '@/utils'
 import { usersStore } from '@/stores/users'
-import { useOnboarding, useTelemetry } from 'frappe-ui/frappe'
+import { useOnboarding } from 'frappe-ui/frappe'
 import {
   toast,
   createListResource,
@@ -108,9 +108,9 @@ import {
 } from 'frappe-ui'
 import { ref, computed } from 'vue'
 
-const { updateOnboardingStep } = useOnboarding('frappecrm')
+const { updateOnboardingStep } = useOnboarding('orbiocrm')
 const { users, isAdmin, isManager } = usersStore()
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const invitees = ref([])
 const role = ref('Sales User')

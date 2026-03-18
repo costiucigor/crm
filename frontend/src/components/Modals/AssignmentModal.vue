@@ -89,7 +89,6 @@
 import UserAvatar from '@/components/UserAvatar.vue'
 import Link from '@/components/Controls/Link.vue'
 import { usersStore } from '@/stores/users'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { Tooltip, call } from 'frappe-ui'
 import { ref, onMounted } from 'vue'
 
@@ -108,7 +107,7 @@ const oldAssignees = ref([])
 const error = ref('')
 
 const { users, getUser } = usersStore()
-const { capture } = useTelemetry()
+const capture = () => {}
 
 const removeValue = (value) => {
   assignees.value = assignees.value.filter(

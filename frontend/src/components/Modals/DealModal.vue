@@ -80,7 +80,6 @@ import { statusesStore } from '@/stores/statuses'
 import { isMobileView } from '@/composables/settings'
 import { showQuickEntryModal, quickEntryProps } from '@/composables/modals'
 import { useDocument } from '@/data/document'
-import { useTelemetry } from 'frappe-ui/frappe'
 import { Switch, createResource } from 'frappe-ui'
 import { computed, ref, onMounted, nextTick, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -104,7 +103,7 @@ const hasContactSections = ref(true)
 const isDealCreating = ref(false)
 const chooseExistingContact = ref(false)
 const chooseExistingOrganization = ref(false)
-const { capture } = useTelemetry()
+const capture = () => {}
 
 watch(
   [chooseExistingOrganization, chooseExistingContact],

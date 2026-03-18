@@ -89,7 +89,7 @@ import CommentIcon from '@/components/Icons/CommentIcon.vue'
 import Email2Icon from '@/components/Icons/Email2Icon.vue'
 import { usersStore } from '@/stores/users'
 import { useStorage } from '@vueuse/core'
-import { useOnboarding, useTelemetry } from 'frappe-ui/frappe'
+import { useOnboarding } from 'frappe-ui/frappe'
 import { call, createResource, toast } from 'frappe-ui'
 import { ref, watch, computed } from 'vue'
 
@@ -103,8 +103,8 @@ const reload = defineModel('reload', { type: Boolean })
 const emit = defineEmits(['scroll'])
 
 const { getUser } = usersStore()
-const { updateOnboardingStep } = useOnboarding('frappecrm')
-const { capture } = useTelemetry()
+const { updateOnboardingStep } = useOnboarding('orbiocrm')
+const capture = () => {}
 
 const showEmailBox = ref(false)
 const showCommentBox = ref(false)
